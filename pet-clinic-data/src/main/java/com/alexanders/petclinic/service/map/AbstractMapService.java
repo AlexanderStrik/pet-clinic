@@ -1,13 +1,16 @@
 package com.alexanders.petclinic.service.map;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public abstract class AbstractMapService<T, ID> {
+import com.alexanders.petclinic.model.BaseEntity;
 
-    protected Map<ID, T> map = new HashMap<>();
+public abstract class AbstractMapService<T extends BaseEntity, ID extends Long> {
+
+    Map<Long, T> map = new HashMap<>();
 
     @SuppressWarnings("unchecked")
     public Set<T> findAll() {
@@ -18,7 +21,9 @@ public abstract class AbstractMapService<T, ID> {
         return map.get(id);
     }
 
-    public T save(ID id, T t) {
+    public T save(T t) {
+        Long id = getNextId();
+        t.setId(id);
         map.put(id, t);
         return t;
     }
@@ -29,5 +34,11 @@ public abstract class AbstractMapService<T, ID> {
 
     public void deleteById(ID id) {
         map.remove(id);
+    }
+
+    private Long getNextId() {
+        return (map.size() == 0)
+                ? 1L
+                : Collections.max(map.keySet()) + 1L;
     }
 }

@@ -15,7 +15,7 @@ public class OwnerController {
 
     @RequestMapping(
             method = RequestMethod.GET,
-            path = {"/owners", "/owners/index", "/owners/index.html"}
+            path = {"/owners", "/owners.html", "/owners/index", "/owners/index.html"}
     )
     public String getOwners(Model model) {
         model.addAttribute("owners", ownerService.findAll());

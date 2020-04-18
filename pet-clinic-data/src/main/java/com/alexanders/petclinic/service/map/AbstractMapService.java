@@ -12,9 +12,8 @@ public abstract class AbstractMapService<T extends BaseEntity, ID extends Long> 
 
     Map<Long, T> map = new HashMap<>();
 
-    @SuppressWarnings("unchecked")
     public Set<T> findAll() {
-        return new HashSet(map.values());
+        return new HashSet<>(map.values());
     }
 
     public T findById(ID id) {

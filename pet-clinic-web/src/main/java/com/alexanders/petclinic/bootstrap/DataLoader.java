@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import com.alexanders.petclinic.model.Owner;
 import com.alexanders.petclinic.model.Pet;
 import com.alexanders.petclinic.model.PetType;
+import com.alexanders.petclinic.model.Speciality;
 import com.alexanders.petclinic.model.Vet;
 import com.alexanders.petclinic.service.OwnerService;
 import com.alexanders.petclinic.service.VetService;
@@ -24,11 +25,26 @@ public class DataLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
+        if (ownerService.findAll().size() == 0) {
+            loadData();
+        }
+    }
+
+    private void loadData() {
         PetType dog = new PetType();
         dog.setName("Dog");
 
         PetType cat = new PetType();
         cat.setName("Cat");
+
+        Speciality radiology = new Speciality();
+        radiology.setDescription("Radiology");
+
+        Speciality surgery = new Speciality();
+        surgery.setDescription("Surgery");
+
+        Speciality dentistry = new Speciality();
+        dentistry.setDescription("Dentistry");
 
         Owner michael = new Owner("Michael", "Weston");
         michael.setAddress("123 Brickerel");
@@ -61,9 +77,11 @@ public class DataLoader implements CommandLineRunner {
         System.out.println("Loaded Owners...");
 
         Vet vet1 = new Vet("Sam", "Axe");
+        vet1.getSpecialities().add(radiology);
         vetService.save(vet1);
 
         Vet vet2 = new Vet("Jessie", "Porter");
+        vet2.getSpecialities().add(surgery);
         vetService.save(vet2);
 
         System.out.println("Loaded Vets...");

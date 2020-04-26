@@ -1,18 +1,20 @@
-package com.alexanders.petclinic.service.map;
+package com.alexanders.petclinic.services.map;
 
 import com.alexanders.petclinic.model.Speciality;
 import com.alexanders.petclinic.model.Vet;
-import com.alexanders.petclinic.service.SpecialtyService;
-import com.alexanders.petclinic.service.VetService;
+import com.alexanders.petclinic.services.SpecialityService;
+import com.alexanders.petclinic.services.VetService;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 @Service
+@Profile({"default", "map-data"})
 public class VetMapService extends AbstractMapService<Vet, Long> implements VetService {
 
-    private final SpecialtyService specialtyService;
+    private final SpecialityService specialityService;
 
-    public VetMapService(SpecialtyService specialtyService) {
-        this.specialtyService = specialtyService;
+    public VetMapService(SpecialityService specialityService) {
+        this.specialityService = specialityService;
     }
 
     @Override
@@ -23,7 +25,7 @@ public class VetMapService extends AbstractMapService<Vet, Long> implements VetS
         if (vet.getSpecialities() != null) {
             vet.getSpecialities().forEach(speciality -> {
                 if (speciality.getId() == null) {
-                    Speciality savedSpecialty = specialtyService.save(speciality);
+                    Speciality savedSpecialty = specialityService.save(speciality);
                     speciality.setId(savedSpecialty.getId());
                 }
             });

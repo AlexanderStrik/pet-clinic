@@ -7,10 +7,10 @@ import com.alexanders.petclinic.model.Pet;
 import com.alexanders.petclinic.model.PetType;
 import com.alexanders.petclinic.model.Speciality;
 import com.alexanders.petclinic.model.Vet;
-import com.alexanders.petclinic.repository.OwnerRepository;
-import com.alexanders.petclinic.repository.VetRepository;
-import com.alexanders.petclinic.service.OwnerService;
-import com.alexanders.petclinic.service.VetService;
+import com.alexanders.petclinic.model.Visit;
+import com.alexanders.petclinic.services.OwnerService;
+import com.alexanders.petclinic.services.VetService;
+import com.alexanders.petclinic.services.VisitService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -19,15 +19,12 @@ public class DataLoader implements CommandLineRunner {
 
     private final OwnerService ownerService;
     private final VetService vetService;
+    private final VisitService visitService;
 
-    private final OwnerRepository ownerRepository;
-    private final VetRepository vetRepository;
-
-    public DataLoader(OwnerService ownerService, VetService vetService, OwnerRepository ownerRepository, VetRepository vetRepository) {
+    public DataLoader(OwnerService ownerService, VetService vetService, VisitService visitService) {
         this.ownerService = ownerService;
         this.vetService = vetService;
-        this.ownerRepository = ownerRepository;
-        this.vetRepository = vetRepository;
+        this.visitService = visitService;
     }
 
     @Override
@@ -69,7 +66,6 @@ public class DataLoader implements CommandLineRunner {
         michael.getPets().add(michaelDog);
 
         ownerService.save(michael);
-//        ownerRepository.save(michael);
 
         Owner fiona = new Owner("Fiona", "Glenanne");
 //        Owner fiona = new Owner();
@@ -87,19 +83,22 @@ public class DataLoader implements CommandLineRunner {
         fiona.getPets().add(fionaCat);
 
         ownerService.save(fiona);
-//        ownerRepository.save(fiona);
+
+        Visit catVisit = new Visit();
+        catVisit.setPet(fionaCat);
+        catVisit.setDate(LocalDate.now());
+        catVisit.setDescription("Sneezy Kitty");
+        visitService.save(catVisit);
 
         System.out.println("Loaded Owners...");
 
         Vet vet1 = new Vet("Sam", "Axe");
         vet1.getSpecialities().add(radiology);
         vetService.save(vet1);
-        vetRepository.save(vet1);
 
         Vet vet2 = new Vet("Jessie", "Porter");
         vet2.getSpecialities().add(surgery);
         vetService.save(vet2);
-        vetRepository.save(vet2);
 
         System.out.println("Loaded Vets...");
     }

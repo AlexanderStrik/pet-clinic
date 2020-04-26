@@ -1,6 +1,6 @@
 package com.alexanders.petclinic.controllers.owners;
 
-import com.alexanders.petclinic.service.OwnerService;
+import com.alexanders.petclinic.services.OwnerService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

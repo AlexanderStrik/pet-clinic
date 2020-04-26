@@ -1,16 +1,18 @@
-package com.alexanders.petclinic.service.map;
+package com.alexanders.petclinic.services.map;
 
 import java.util.Objects;
 
 import com.alexanders.petclinic.model.Owner;
 import com.alexanders.petclinic.model.Pet;
 import com.alexanders.petclinic.model.PetType;
-import com.alexanders.petclinic.service.OwnerService;
-import com.alexanders.petclinic.service.PetService;
-import com.alexanders.petclinic.service.PetTypeService;
+import com.alexanders.petclinic.services.OwnerService;
+import com.alexanders.petclinic.services.PetService;
+import com.alexanders.petclinic.services.PetTypeService;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 @Service
+@Profile({"default", "map-data"})
 public class OwnerMapService extends AbstractMapService<Owner, Long> implements OwnerService {
 
     private final PetService petService;

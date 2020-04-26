@@ -1,6 +1,6 @@
 package com.alexanders.petclinic.controllers.vets;
 
-import com.alexanders.petclinic.service.VetService;
+import com.alexanders.petclinic.services.VetService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -1,4 +1,4 @@
-package com.alexanders.petclinic.service.map;
+package com.alexanders.petclinic.services.map;
 
 import java.util.Collections;
 import java.util.HashMap;

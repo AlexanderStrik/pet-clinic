@@ -7,6 +7,8 @@ import com.alexanders.petclinic.model.Pet;
 import com.alexanders.petclinic.model.PetType;
 import com.alexanders.petclinic.model.Speciality;
 import com.alexanders.petclinic.model.Vet;
+import com.alexanders.petclinic.repository.OwnerRepository;
+import com.alexanders.petclinic.repository.VetRepository;
 import com.alexanders.petclinic.service.OwnerService;
 import com.alexanders.petclinic.service.VetService;
 import org.springframework.boot.CommandLineRunner;
@@ -18,9 +20,14 @@ public class DataLoader implements CommandLineRunner {
     private final OwnerService ownerService;
     private final VetService vetService;
 
-    public DataLoader(OwnerService ownerService, VetService vetService) {
+    private final OwnerRepository ownerRepository;
+    private final VetRepository vetRepository;
+
+    public DataLoader(OwnerService ownerService, VetService vetService, OwnerRepository ownerRepository, VetRepository vetRepository) {
         this.ownerService = ownerService;
         this.vetService = vetService;
+        this.ownerRepository = ownerRepository;
+        this.vetRepository = vetRepository;
     }
 
     @Override
@@ -47,6 +54,9 @@ public class DataLoader implements CommandLineRunner {
         dentistry.setDescription("Dentistry");
 
         Owner michael = new Owner("Michael", "Weston");
+//        Owner michael = new Owner();
+//        michael.setFirstName("Michael");
+//        michael.setLastName("Weston");
         michael.setAddress("123 Brickerel");
         michael.setCity("Miami");
         michael.setTelephone("1235444555");
@@ -59,8 +69,12 @@ public class DataLoader implements CommandLineRunner {
         michael.getPets().add(michaelDog);
 
         ownerService.save(michael);
+//        ownerRepository.save(michael);
 
         Owner fiona = new Owner("Fiona", "Glenanne");
+//        Owner fiona = new Owner();
+//        fiona.setFirstName("Fiona");
+//        fiona.setLastName("Glenanne");
         fiona.setAddress("456 Brickerel");
         fiona.setCity("Miami Beach");
         fiona.setTelephone("554446666");
@@ -73,16 +87,19 @@ public class DataLoader implements CommandLineRunner {
         fiona.getPets().add(fionaCat);
 
         ownerService.save(fiona);
+//        ownerRepository.save(fiona);
 
         System.out.println("Loaded Owners...");
 
         Vet vet1 = new Vet("Sam", "Axe");
         vet1.getSpecialities().add(radiology);
         vetService.save(vet1);
+        vetRepository.save(vet1);
 
         Vet vet2 = new Vet("Jessie", "Porter");
         vet2.getSpecialities().add(surgery);
         vetService.save(vet2);
+        vetRepository.save(vet2);
 
         System.out.println("Loaded Vets...");
     }

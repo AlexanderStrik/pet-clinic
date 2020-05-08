@@ -1,1 +1,1 @@
-# pet-clinic
+# Spring test application `Pet-clinic`

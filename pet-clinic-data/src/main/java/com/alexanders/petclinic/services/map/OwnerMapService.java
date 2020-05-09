@@ -49,11 +49,10 @@ public class OwnerMapService extends AbstractMapService<Owner, Long> implements 
 
     @Override
     public Owner findByLastName(String lastName) {
-        return map.entrySet()
-                  .stream()
-                  .filter(entry -> lastName.equals(entry.getValue().getLastName()))
-                  .findFirst()
-                  .orElseThrow(() -> new RuntimeException(String.format("Owner with last name %s wasn't found", lastName)))
-                  .getValue();
+        return getMap().values()
+                       .stream()
+                       .filter(owner -> lastName.equalsIgnoreCase(owner.getLastName()))
+                       .findFirst()
+                       .orElse(null);
     }
 }

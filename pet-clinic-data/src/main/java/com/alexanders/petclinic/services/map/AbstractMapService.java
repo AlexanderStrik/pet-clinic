@@ -10,7 +10,11 @@ import com.alexanders.petclinic.model.BaseEntity;
 
 public abstract class AbstractMapService<T extends BaseEntity, ID extends Long> {
 
-    Map<Long, T> map = new HashMap<>();
+    private final Map<Long, T> map = new HashMap<>();
+
+    public Map<Long, T> getMap() {
+        return map;
+    }
 
     public Set<T> findAll() {
         return new HashSet<>(map.values());
